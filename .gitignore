@@ -1,6 +1,2 @@
-data/raw/
-*.zip
-*.rar
-*.pdf
-notebooks/
-reports/
+__pycache__/
+*.pyc
