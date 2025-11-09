@@ -6,16 +6,14 @@
 import re
 import os
 import nltk
-from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
-# Memastikan resource NLTK tersedia
-for resource in ["punkt", "punkt_tab", "stopwords"]:
-    try:
-        nltk.data.find(f"tokenizers/{resource}") if "punkt" in resource else nltk.data.find(f"corpora/{resource}")
-    except LookupError:
-        nltk.download(resource)
+# Pastikan stopwords tersedia
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords")
 
 # Inisialisasi stemmer & stopwords
 factory = StemmerFactory()
@@ -31,8 +29,8 @@ def clean(text):
     return text
 
 def tokenize(text):
-    """Tokenisasi teks"""
-    return word_tokenize(text)
+    """Tokenisasi sederhana tanpa NLTK word_tokenize"""
+    return re.findall(r'\b\w+\b', text)
 
 def remove_stopwords(tokens):
     """Hapus stopwords umum bahasa Indonesia"""
