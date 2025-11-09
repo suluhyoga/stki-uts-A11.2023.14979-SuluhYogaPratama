@@ -1,0 +1,6 @@
+data/raw/
+*.zip
+*.rar
+*.pdf
+notebooks/
+reports/
