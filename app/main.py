@@ -4,6 +4,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import streamlit as st
 from src.search import search_boolean, search_vector
+import nltk
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords")
 
 # --- Konfigurasi Halaman ---
 st.set_page_config(
