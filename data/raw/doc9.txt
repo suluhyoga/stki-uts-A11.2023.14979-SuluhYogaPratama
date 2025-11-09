@@ -1,0 +1,5 @@
+Dalam konteks stemming, sistem informasi modern membutuhkan mekanisme yang mampu mengakses dan menemukan dokumen yang relevan secara efisien. Pendekatan tradisional mengandalkan pencocokan kata kunci sederhana, namun metode tersebut sering tidak cukup untuk menangkap makna konseptual yang lebih dalam.
+
+Pendekatan terbaru memanfaatkan model representasi teks yang lebih kaya serta teknik pembobotan seperti TF-IDF dan algoritma perankingan. Dengan demikian, hasil pencarian dapat diurutkan bukan hanya berdasarkan kemunculan kata, tetapi juga tingkat relevansinya terhadap pertanyaan pengguna.
+
+Selain itu, penelitian terbaru juga mengarah pada pemanfaatan embedding dan metode berbasis pembelajaran mesin untuk memahami hubungan semantik antar kata dan kalimat. Hal ini meningkatkan presisi sistem dan membantu pengguna memperoleh informasi yang lebih tepat.
