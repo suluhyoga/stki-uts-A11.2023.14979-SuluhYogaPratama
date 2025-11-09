@@ -1,5 +1,7 @@
-streamlit
-nltk
-pandas
+nltk>=3.8.1
 Sastrawi
+streamlit
+numpy
+pandas
+scikit-learn
 matplotlib
