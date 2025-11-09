@@ -5,16 +5,19 @@
 
 import re
 import os
+import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
-import nltk
 
-nltk.download('punkt')
-nltk.download('punkt_tab')
-nltk.download('stopwords')
+# Memastikan resource NLTK tersedia
+for resource in ["punkt", "punkt_tab", "stopwords"]:
+    try:
+        nltk.data.find(f"tokenizers/{resource}") if "punkt" in resource else nltk.data.find(f"corpora/{resource}")
+    except LookupError:
+        nltk.download(resource)
 
-# Inisialisasi stopwords & stemmer
+# Inisialisasi stemmer & stopwords
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
 stop_words = set(stopwords.words("indonesian"))
@@ -36,7 +39,7 @@ def remove_stopwords(tokens):
     return [t for t in tokens if t not in stop_words]
 
 def stem(tokens):
-    """Lakukan stemming (mengubah ke kata dasar)"""
+    """Lakukan stemming (kata dasar)"""
     return [stemmer.stem(t) for t in tokens]
 
 def preprocess_text(text):
@@ -56,10 +59,7 @@ def process_folder(input_folder, output_folder):
         if filename.endswith(".txt"):
             with open(os.path.join(input_folder, filename), "r", encoding="utf-8") as f:
                 text = f.read()
-
             tokens = preprocess_text(text)
-
             with open(os.path.join(output_folder, filename), "w", encoding="utf-8") as f:
                 f.write(" ".join(tokens))
-
             print(f"[OK] {filename} → processed ({len(tokens)} tokens)")
