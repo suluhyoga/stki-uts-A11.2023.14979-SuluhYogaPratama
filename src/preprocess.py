@@ -5,27 +5,18 @@
 
 import re
 import os
-import nltk
+from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+import nltk
 
-# --- Pastikan resource dasar NLTK tersedia ---
-for resource in ["punkt", "stopwords"]:
-    try:
-        nltk.data.find(f"tokenizers/{resource}")
-    except LookupError:
-        try:
-            nltk.download(resource, quiet=True)
-        except:
-            pass 
+nltk.download('punkt_tab')
+nltk.download('stopwords')
 
-# --- Inisialisasi stemmer & stopwords ---
+# Inisialisasi stopwords & stemmer
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
-try:
-    stop_words = set(stopwords.words("indonesian"))
-except LookupError:
-    stop_words = set()  
+stop_words = set(stopwords.words("indonesian"))
 
 def clean(text):
     """Case folding + hapus angka, tanda baca, dan spasi ganda"""
@@ -36,19 +27,15 @@ def clean(text):
     return text
 
 def tokenize(text):
-    """Tokenisasi aman (NLTK jika tersedia, regex jika gagal)"""
-    try:
-        from nltk.tokenize import word_tokenize
-        return word_tokenize(text)
-    except LookupError:
-        return re.findall(r'\b\w+\b', text)
+    """Tokenisasi teks"""
+    return word_tokenize(text)
 
 def remove_stopwords(tokens):
     """Hapus stopwords umum bahasa Indonesia"""
     return [t for t in tokens if t not in stop_words]
 
 def stem(tokens):
-    """Lakukan stemming (kata dasar)"""
+    """Lakukan stemming (mengubah ke kata dasar)"""
     return [stemmer.stem(t) for t in tokens]
 
 def preprocess_text(text):
@@ -68,7 +55,10 @@ def process_folder(input_folder, output_folder):
         if filename.endswith(".txt"):
             with open(os.path.join(input_folder, filename), "r", encoding="utf-8") as f:
                 text = f.read()
+
             tokens = preprocess_text(text)
+
             with open(os.path.join(output_folder, filename), "w", encoding="utf-8") as f:
                 f.write(" ".join(tokens))
+
             print(f"[OK] {filename} → processed ({len(tokens)} tokens)")
