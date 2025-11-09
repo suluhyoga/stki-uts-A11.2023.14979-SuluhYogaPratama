@@ -10,6 +10,7 @@ from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import nltk
 
+nltk.download('punkt')
 nltk.download('punkt_tab')
 nltk.download('stopwords')
 
