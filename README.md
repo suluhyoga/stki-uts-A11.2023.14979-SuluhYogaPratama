@@ -7,7 +7,7 @@ Aplikasi ini mengimplementasikan dua model utama dalam **Information Retrieval S
 - **Boolean Retrieval Model** → untuk pencarian berbasis logika kata kunci (**AND**, **OR**, **NOT**)
 - **Vector Space Model (VSM)** → untuk pencarian dengan perankingan relevansi berdasarkan *TF-IDF* dan *Cosine Similarity*.
 
-Dibangun menggunakan **Python + Streamlit**
+Dibangun menggunakan **Python + Streamlit**  
 “Sistem ini menjadi representasi sederhana dari mesin pencari modern, sekaligus bukti penerapan konsep Information Retrieval secara nyata”
 
 **📌 Terima kasih telah menggunakan aplikasi ini**
