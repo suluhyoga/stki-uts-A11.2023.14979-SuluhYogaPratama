@@ -9,20 +9,23 @@ import nltk
 from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
-# --- Pastikan resource NLTK tersedia ---
-for resource in ["punkt", "punkt_tab", "stopwords"]:
+# --- Pastikan resource dasar NLTK tersedia ---
+for resource in ["punkt", "stopwords"]:
     try:
         nltk.data.find(f"tokenizers/{resource}")
     except LookupError:
         try:
-            nltk.download(resource)
+            nltk.download(resource, quiet=True)
         except:
-            pass
+            pass 
 
 # --- Inisialisasi stemmer & stopwords ---
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
-stop_words = set(stopwords.words("indonesian"))
+try:
+    stop_words = set(stopwords.words("indonesian"))
+except LookupError:
+    stop_words = set()  
 
 def clean(text):
     """Case folding + hapus angka, tanda baca, dan spasi ganda"""
@@ -33,12 +36,11 @@ def clean(text):
     return text
 
 def tokenize(text):
-    """Tokenisasi aman untuk cloud dan lokal"""
+    """Tokenisasi aman (NLTK jika tersedia, regex jika gagal)"""
     try:
         from nltk.tokenize import word_tokenize
         return word_tokenize(text)
     except LookupError:
-        # fallback jika punkt/punkt_tab gagal di-load
         return re.findall(r'\b\w+\b', text)
 
 def remove_stopwords(tokens):
